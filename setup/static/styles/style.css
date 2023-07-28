@@ -106,7 +106,7 @@ table {
     background-color: transparent;
     border: none;
     font-size: 1rem;
-    height: 24px;
+    height: 100%;
     padding: 10px;
     width: 500px;
 }
@@ -117,7 +117,7 @@ table {
     height: 2rem;
 }
 
-.cards {
+.cards_cards {
     width: 100%;
 }
 
@@ -135,7 +135,7 @@ table {
     align-content: space-between;
 }
 
-.card {
+.card_card {
     border-radius: 10px;
     box-shadow: 0px 10px 10px #00000050;
     color: #FFFFFF;
@@ -146,6 +146,7 @@ table {
 
 .card__imagem {
     width: 450px;
+    height: 250px;
     border-radius: 10px 10px 0 0;
 }
 
@@ -166,6 +167,13 @@ table {
 .card__info {
     font-size: 1.2rem;
     padding: 0 1.5rem 1rem 1.5rem;
+}
+
+.card__fotografia {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 5px;
 }
 
 .card__titulo {
@@ -352,7 +360,7 @@ table {
     font-size: 1.1rem;
 }
 
-.tags {
+.tags_tags {
     padding: 1.5rem 0;
     display: flex;
     align-items: center;
@@ -373,7 +381,7 @@ table {
     margin-right: 1.5rem;
     border-radius: 8px;
     padding: .8rem .5rem;
-    width: 100px;
+    width: 120px;
     text-align: center;
     border: 2px solid transparent;
 }
