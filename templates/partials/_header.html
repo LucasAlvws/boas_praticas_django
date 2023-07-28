@@ -3,10 +3,10 @@
     <header class="cabecalho">
         <img src="{% static '/assets/logo/Logo(2).png' %}" alt="Logo da Alura Space" />
         {% for msg in messages %}
-            <div class="alert alert-primary">
-                <p id='messages' >{{msg}}</p>
+            <div class="alert alert-{{msg.tags}}">     
+                <div id='messages' >{{msg}}</div>
             </div>
-            {% endfor %}
+        {% endfor %}
         <div class="cabecalho__busca">
             <div class="busca__fundo">
                 <form action="{% url 'buscar' %}">
@@ -21,8 +21,14 @@
         <section class="menu-lateral">
             <nav class="menu-lateral__navegacao">
                 <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <a href="{% url 'admin:index' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}"> Admin</a>
+                {% endif %}
+                <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
+                {% else %}
                 <a href="{% url 'login' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Login</a>
                 <a href="{% url 'cadastro' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}"> Cadastro</a>
-                <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
+                {% endif %}
             </nav>
         </section>
