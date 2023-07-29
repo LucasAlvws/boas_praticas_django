@@ -1,6 +1,26 @@
 
     {% extends 'partials/base.html' %}
     {% load static %}
+    {% block head %}
+    
+<script type="text/javascript">
+
+    function pergunta() {
+
+        if (confirm("Deseja confirmar essa operação?")) {
+
+            window.location.replace("{% url 'deletar-img' fotografia.id %}");
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+</script>
+    {% endblock head %}
     {% block content %}
             <section class="conteudo">
                 <section class="imagem">
@@ -18,8 +38,9 @@
                                 <p class="imagem__texto">{{fotografia.descricao}}</p>
                             </div>
                             <div>
-                                <a href="{% url 'editar-img' %}"><button type="submit" class="btn btn-primary col-12 mb-2" style="padding: top 5px;">Editar</button></a>
-                                <a href="{% url 'deletar-img' %}"><button type="submit" class="btn btn-danger col-12" style="padding: top 5px;">Deletar</button></a>
+                                <a href="{% url 'editar-img' fotografia.id %}"><button type="submit" class="btn btn-primary col-12 mb-2" style="padding: top 5px;">Editar</button></a>
+                                <button class="btn btn-danger col-12" style="padding: top 5px;" onclick="pergunta()">Deletar</button>
+                                
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,7 @@ def buscar(request):
         nome_buscar = request.GET['buscar']
         if nome_buscar: 
             querry_set = querry_set.filter(nome__icontains = nome_buscar)
-    return render(request, 'galeria/buscar.html', {'cards' : querry_set})
+    return render(request, 'galeria/index.html', {'cards' : querry_set})
 
 def nova_img(request):
     if not request.user.is_authenticated:
@@ -50,8 +50,38 @@ def nova_img(request):
             return redirect('index')
     return render(request, 'galeria/nova_img.html',{ "form" : form})
 
-def editar_img(request):
-    pass
 
-def deletar_img(request):
-    pass
+
+def editar_img(request, id):
+    if not request.user.is_authenticated:
+        messages.error(request, "Você precisa estar logado para conseguir acessar ao Item")
+        return redirect('login')
+    foto = Fotografia.objects.get(pk=id)
+    form = FotografiaForms(instance=foto)
+
+    if request.method == "POST":
+        form = FotografiaForms(request.POST, request.FILES, instance=foto)
+        if form.is_valid():
+            form.instance.usuario = request.user
+            form.save()
+            messages.success(request, "Foto Editada sucesso.")
+            return redirect('imagem', foto.pk)
+
+    return render(request, 'galeria/editar_img.html',{ "form" : form, "fotografia": foto})
+
+
+def deletar_img(request, id):
+    if not request.user.is_authenticated:
+        messages.error(request, "Você precisa estar logado para conseguir acessar ao Item")
+        return redirect('login')
+    foto = Fotografia.objects.get(pk=id)
+    foto.delete()
+    messages.success(request, "Foto Deletada sucesso.")
+    return redirect('index')
+
+def filtro(request, tag):
+    if not request.user.is_authenticated:
+        messages.error(request, "Você precisa estar logado para conseguir acessar ao Item")
+        return redirect('login')
+    fotos = Fotografia.objects.filter(categoria=tag)
+    return render(request, 'galeria/index.html', {'cards' : fotos})
